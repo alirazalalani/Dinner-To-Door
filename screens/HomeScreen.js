@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import {
@@ -17,8 +18,10 @@ import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeaturedRow";
 import sanityClient from "../sanity";
 import category from "../sanity/schemas/category";
+import { StatusBar } from "expo-status-bar";
+import { auth } from "../firebase";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useEffect(() => {
@@ -36,17 +39,25 @@ const HomeScreen = () => {
         setFeaturedCategories(data);
       });
   }, []);
+  const signOutUser = () => {
+    auth.signOut().then(() => {
+      navigation.replace("Login");
+    });
+  };
 
   // console.log(featuredCategories);
 
   return (
     <SafeAreaView className="pt-5">
+      <StatusBar style="dark" />
       {/* Header */}
       <View className="flex-row pb-3 items-center mx-4 space-x-2">
-        <Image
-          source={{ uri: "https://links.papareact.com/wru" }}
-          className="h-7 w-7 bg-gray-300 p-4 rounded-full"
-        />
+        <TouchableOpacity onPress={signOutUser}>
+          <Image
+            source={{ uri: "https://links.papareact.com/wru" }}
+            className="h-7 w-7 bg-gray-300 p-4 rounded-full"
+          />
+        </TouchableOpacity>
         <View className="flex-1">
           <Text className="font-bold text-gray-400 text-xs">Deliver Now!</Text>
           <Text className="font-bold text-xl">

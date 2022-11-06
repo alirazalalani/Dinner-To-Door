@@ -9,12 +9,36 @@ import { Provider } from "react-redux";
 import BasketScreen from "./screens/BasketScreen";
 import PreparingOrder from "./screens/PreparingOrder";
 import DeliveryScreen from "./screens/DeliveryScreen";
+import FrontScreen from "./screens/FrontScreen";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
 export default function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
         <TailwindProvider>
           <Stack.Navigator>
+            <Stack.Screen
+              component={FrontScreen}
+              name="Front"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={LoginScreen}
+              name="Login"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              component={SignupScreen}
+              name="Signup"
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               component={HomeScreen}
               name="Home"
